@@ -7,19 +7,67 @@
 #countdown {
   float: right;
   padding-right: 20px;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: lighter;
 }
- 
+
+header {
+  margin-top: 20px;
+}
   
 a {
     text-decoration: none;
     padding: 20px;
 }
 
+
+
 /* instructions style */
-.intro {
+#intro {
   text-align: center;
+}
+
+
+
+#container {
+  display: grid;
+  grid-template-columns: .3fr;
+  justify-content: center;
+  align-items: center;
+}
+
+#question {
+  font-weight: bold;
+}
+#choice-buttons {
+  width: 500px;
+
+
+}
+
+.btn-grid {
+  display: grid;
+  gap: 5px;
+  max-width: 300px;
+  width: 80%;
+  margin: 20px 0;
+}
+
+.btn {
+  background-color: indigo;
+  color: white;
+  font-size: 14px;
+  text-align: start;
+  border-radius: 8px;
+  padding: 5px 10px;
+}
+
+.btn:hover {
+  background-color: violet;
+}
+
+.hide {
+  display: none;
 }
 
 
