@@ -1,5 +1,5 @@
 * {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* timer style */
@@ -12,7 +12,10 @@
 }
 
 header {
+  display: block;
   margin-top: 20px;
+  justify-content: space-between;
+
 }
   
 a {
@@ -31,13 +34,17 @@ a {
 
 #container {
   display: grid;
-  grid-template-columns: .3fr;
+  padding: 50px;
+  margin: 5px;
+  grid-template-columns: .5fr;
   justify-content: center;
   align-items: center;
 }
 
 #question {
   font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 20px;
 }
 #choice-buttons {
   width: 500px;
@@ -48,18 +55,18 @@ a {
 .btn-grid {
   display: grid;
   gap: 5px;
-  max-width: 300px;
+  max-width: 150px;
   width: 80%;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .btn {
   background-color: indigo;
   color: white;
   font-size: 14px;
-  text-align: start;
   border-radius: 8px;
-  padding: 5px 10px;
+  padding: 5px 5px;
+  text-align: start;
 }
 
 .btn:hover {
@@ -68,6 +75,22 @@ a {
 
 .hide {
   display: none;
+}
+
+h4 {
+  font-style: italic;
+  color: dimgray;
+}
+
+#score-form input {
+  padding: 5px;
+}
+
+#score-form input:focus {
+
+  border: 1px solid lightblue;
+  
+
 }
 
 

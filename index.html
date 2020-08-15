@@ -12,13 +12,15 @@
             <a href="#"><span>View high scores</span></a>
             <h1 id="countdown">Time: 60</h1>
         </header>
+        <!-- intro section -->
         <div id="intro">
             <h2> Coding Quiz Challenge</h2>
             <p>Try to answer the following code-related questions within the time limit.<br/>
                 Keep in mind that incorrect answers will penalize your score/time by 15 seconds!
             </p>
-            <button id="start">Start</button>
+            <button id="start" class="btn">Start Quiz</button>
         </div>
+        <!-- container for questions -->
         <div id="container">
             <div id="question-cards" class="hide">
                 <div id="question"></div>
@@ -28,12 +30,24 @@
                 </div>
                 <div id="result"></div>
             </div>
+
+            <!-- score keeping form once quiz ends -->
             <div id="score-form" class="hide">
                 <h3> All done! </h3>
                 <p>Your final score is <span id="score"></span></p>
                 <label>Enter initials: </label>
                 <input type="initials" name="initials" id="initials" placeholder="" />
-                <button id="submit">Submit</button>
+                <button id="submit" class="btn">Submit</button>
+            </div>
+
+            <div id="scores" class="hide">
+                <h3> Highscores </h3>
+                <ol id="score-list">
+
+                </ol>
+                <button id="back-btn" class="btn">Go Back</button>
+                <button id="clear-btn" class="btn">Clear Highscores</button>
+
             </div>
         </div>
 

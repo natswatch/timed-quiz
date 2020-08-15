@@ -1,17 +1,27 @@
 var timerEl = document.getElementById('countdown');
 var startBtn = document.getElementById('start');
+var headerEl = document.querySelector('header');
 var introEl = document.getElementById('intro');
 var questionsContainerEl = document.getElementById('question-cards');
 var questionEL = document.getElementById('question');
 var choiceButtonsEl = document.getElementById('choice-buttons');
 var resultEl = document.getElementById('result');
+var scoreEl = document.getElementById('score');
 var scoreFormEl = document.getElementById('score-form');
+var initialsEl = document.getElementById('initials');
+var submitBtnEl = document.getElementById('submit');
+var scoreContainerEl = document.getElementById('scores');
+var scoreListEl = document.querySelector("#score-list");
+var backBtnEl = document.getElementById('back-btn');
+var clearBtnEl = document.getElementById('clear-btn');
 
 var score = 0;
 let availableQuestions = [];
 var currentQuestionIndex = 0; 
 var currentQuestionCard = {};
+var timeLeft = 60;
 
+// function launches the quiz
 function startQuiz() {
     introEl.setAttribute("class", "hide");
     questionsContainerEl.removeAttribute("class", "hide");
@@ -21,7 +31,7 @@ function startQuiz() {
 }
 
 
-
+// function serves next question
 function getNewQuestion() {
 
     // set the text for the current question
@@ -36,7 +46,6 @@ function getNewQuestion() {
         button.addEventListener('click', function(){
             checkAnswer(event);
             resetQuestions();
-            
         });
         
         choiceButtonsEl.appendChild(button);
@@ -45,7 +54,7 @@ function getNewQuestion() {
     }
 }
 
-
+// function that resets the buttons for the next set of choices
 function resetQuestions() {
     currentQuestionIndex++;
     if (currentQuestionIndex < availableQuestions.length) {
@@ -58,20 +67,20 @@ function resetQuestions() {
         
     }
     else {
-        showScore();
+        processScore();
+
     }
 
 
 }
 
 
-
+// function to check if selected choice is the answer
 function checkAnswer(event) {
     
     var selectedEl = event.target;
     var selected = selectedEl.innerText;
 
-    console.log(selected);
     
     if (resultEl.firstChild !== null) {
         resultEl.removeChild(resultEl.firstChild);
@@ -86,19 +95,50 @@ function checkAnswer(event) {
         const msgEl = document.createElement('h4');
         msgEl.innerText = "Wrong!";
         resultEl.appendChild(msgEl);
+        timeLeft -= 15;
     }
 
 }
 
-function showScore() {
+function processScore() {
+
+    let score = getScore();
+    showScore(score);
+    submitBtnEl.addEventListener("click", function() {
+        saveScore(score);
+    });
+}
+
+// end of quiz, display form for score keeping
+function showScore(score) {
 
     questionsContainerEl.setAttribute("class", "hide");
     scoreFormEl.removeAttribute("class", "hide");
-    console.log('no more');
-
+    headerEl.setAttribute("class", "hide");
+    scoreEl.textContent = score + ".";
 }
 
 function getScore() {
+
+    if (timeLeft < 0) {
+        timeLeft = 0;
+    }
+    return timeLeft;
+    
+}
+
+function saveScore(score) {
+
+    scoreContainerEl.removeAttribute("class", "hide");
+    scoreFormEl.setAttribute("class", "hide");
+
+    var initials = initialsEl.value;
+
+    var scoreLineEl = document.createElement('li');
+    scoreLineEl.innerText = initials + ": " + score;
+    scoreListEl.appendChild(scoreLineEl);
+    
+    console.log(scoreLineEl);
 
 }
 
@@ -112,12 +152,12 @@ const quiz = [
         a: "3. alerts"
     },
     {
-        q: "The condition in an if/else statement is enclosed with ___",
+        q: "The condition in an if/else statement is enclosed with ____.",
         choices: ['1. quotes', '2. curly braces', '3. parenthesis', '4. square brackets'],
         a: "3. parenthesis"
     },
     {
-        q: "Arrays in javascript can be used to store ____",
+        q: "Arrays in javascript can be used to store ____.",
         choices: ['1. numbers an strings', '2. booleans', '3. other arrays', '4. all of the above'],
         a: "4. all of the above"
     },
@@ -130,8 +170,7 @@ const quiz = [
 
 // Timer that counts down from 75
 function countdown() {
-  var timeLeft = 75;
-
+  
   var timeInterval = setInterval(function() {
     
     timerEl.textContent =  "Time: " + timeLeft;
