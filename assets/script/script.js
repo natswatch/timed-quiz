@@ -11,9 +11,10 @@ var scoreFormEl = document.getElementById('score-form');
 var initialsEl = document.getElementById('initials');
 var submitBtnEl = document.getElementById('submit');
 var scoreContainerEl = document.getElementById('scores');
-var scoreListEl = document.querySelector("#score-list");
+var scoreListEl = document.getElementById("score-list");
 var backBtnEl = document.getElementById('back-btn');
 var clearBtnEl = document.getElementById('clear-btn');
+var noScoreEl = document.getElementById('no-score');
 
 var score = 0;
 let availableQuestions = [];
@@ -61,17 +62,15 @@ function resetQuestions() {
         
         while (choiceButtonsEl.firstChild){
             choiceButtonsEl.removeChild(choiceButtonsEl.firstChild);
-        }
-        
-        getNewQuestion();
-        
+        }    
+
+        getNewQuestion();  
     }
     else {
-        processScore();
-
+        getScore();
+        showScore(score);
+        clearInterval(timeInterval);
     }
-
-
 }
 
 
@@ -100,48 +99,74 @@ function checkAnswer(event) {
 
 }
 
-function processScore() {
-
-    let score = getScore();
-    showScore(score);
-    submitBtnEl.addEventListener("click", function() {
-        saveScore(score);
-    });
-}
-
-// end of quiz, display form for score keeping
-function showScore(score) {
-
-    questionsContainerEl.setAttribute("class", "hide");
-    scoreFormEl.removeAttribute("class", "hide");
-    headerEl.setAttribute("class", "hide");
-    scoreEl.textContent = score + ".";
-}
-
 function getScore() {
 
     if (timeLeft < 0) {
         timeLeft = 0;
     }
-    return timeLeft;
+    console.log(timeLeft);
+    return score = timeLeft;
     
 }
 
-function saveScore(score) {
+// end of quiz, display form for score keeping
+function showScore(s) {
 
+    
+    scoreFormEl.removeAttribute("class", "hide");
+    questionsContainerEl.setAttribute("class", "hide");
+    headerEl.setAttribute("class", "hide");
+    scoreEl.textContent = s + ".";
+}
+
+// function processScore() {
+    
+//     getScore();
+//     showScore(score);
+//     debugger;
+//     submitBtnEl.addEventListener('click', function() {
+//         saveScore(score);
+//     });
+// }
+
+
+
+function saveScore(s) {
+    
     scoreContainerEl.removeAttribute("class", "hide");
     scoreFormEl.setAttribute("class", "hide");
 
-    var initials = initialsEl.value;
-
     var scoreLineEl = document.createElement('li');
-    scoreLineEl.innerText = initials + ": " + score;
+    scoreLineEl.innerText = initialsEl.value + " - " + s;
     scoreListEl.appendChild(scoreLineEl);
-    
-    console.log(scoreLineEl);
-
 }
 
+function resetQuiz() {
+
+    timeLeft = 60;
+    currentQuestionIndex = 0;
+
+    scoreContainerEl.setAttribute("class", "hide");
+    timerEl.textContent =  "Time: " + timeLeft;
+    headerEl.removeAttribute("class", "hide");
+    introEl.removeAttribute("class", "hide");
+    noScoreEl.setAttribute("class", "hide");
+
+    while (choiceButtonsEl.firstChild){
+        choiceButtonsEl.removeChild(choiceButtonsEl.firstChild);
+    }
+    
+}
+
+function clearScore() {
+
+    while (scoreListEl.firstChild){
+        scoreListEl.removeChild(scoreListEl.firstChild);
+    }
+    console.log(scoreListEl.firstChild);
+    noScoreEl.removeAttribute("class", "hide");
+    
+}
 
 
 // question cards' information
@@ -171,14 +196,16 @@ const quiz = [
 // Timer that counts down from 75
 function countdown() {
   
-  var timeInterval = setInterval(function() {
+   timeInterval = setInterval(function() {
     
     timerEl.textContent =  "Time: " + timeLeft;
     timeLeft--;
     if (timeLeft < 0) {
       clearInterval(timeInterval);
+
     }
   }, 1000);
+ 
 }
 
 
@@ -187,4 +214,8 @@ function countdown() {
 // runs countdown once quiz is started
 startBtn.onclick = countdown;
 startBtn.addEventListener('click', startQuiz);
-
+backBtnEl.addEventListener('click', resetQuiz);
+clearBtnEl.addEventListener('click', clearScore);
+submitBtnEl.addEventListener('click', function(){
+    saveScore(score)
+});
