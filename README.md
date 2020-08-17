@@ -9,4 +9,6 @@ Deployed URL: https://natswatch.github.io/timed-quiz
 GitHub Repo URL: https://github.com/natswatch/timed-quiz
 
 
+
+
 ![image](https://user-images.githubusercontent.com/24613646/90358902-36181a00-e00c-11ea-818e-ed73ad15091c.png)
