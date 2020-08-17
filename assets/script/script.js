@@ -24,8 +24,8 @@ var timeLeft = 60;
 
 // function launches the quiz
 function startQuiz() {
-    introEl.setAttribute("class", "hide");
-    questionsContainerEl.removeAttribute("class", "hide");
+    hideElement(introEl);
+    showElement(questionsContainerEl);
     availableQuestions =  quiz;
     getNewQuestion();
 
@@ -113,9 +113,9 @@ function getScore() {
 function showScore(s) {
 
     
-    scoreFormEl.removeAttribute("class", "hide");
-    questionsContainerEl.setAttribute("class", "hide");
-    headerEl.setAttribute("class", "hide");
+    showElement(scoreFormEl);
+    hideElement(questionsContainerEl);
+    hideElement(headerEl);
     scoreEl.textContent = s + ".";
 }
 
@@ -129,16 +129,15 @@ function showScore(s) {
 //     });
 // }
 
-
-
 function saveScore(s) {
     
-    scoreContainerEl.removeAttribute("class", "hide");
-    scoreFormEl.setAttribute("class", "hide");
+    showElement(scoreContainerEl);
+    hideElement(scoreFormEl);
 
     var scoreLineEl = document.createElement('li');
     scoreLineEl.innerText = initialsEl.value + " - " + s;
     scoreListEl.appendChild(scoreLineEl);
+    initialsEl.value = "";
 }
 
 function resetQuiz() {
@@ -146,16 +145,15 @@ function resetQuiz() {
     timeLeft = 60;
     currentQuestionIndex = 0;
 
-    scoreContainerEl.setAttribute("class", "hide");
+    hideElement(scoreContainerEl);
     timerEl.textContent =  "Time: " + timeLeft;
-    headerEl.removeAttribute("class", "hide");
-    introEl.removeAttribute("class", "hide");
-    noScoreEl.setAttribute("class", "hide");
+    showElement(headerEl);
+    showElement(introEl);
+    hideElement(noScoreEl);
 
     while (choiceButtonsEl.firstChild){
         choiceButtonsEl.removeChild(choiceButtonsEl.firstChild);
     }
-    
 }
 
 function clearScore() {
@@ -164,7 +162,7 @@ function clearScore() {
         scoreListEl.removeChild(scoreListEl.firstChild);
     }
     console.log(scoreListEl.firstChild);
-    noScoreEl.removeAttribute("class", "hide");
+    showElement(noScoreEl);
     
 }
 
@@ -208,8 +206,13 @@ function countdown() {
  
 }
 
+function showElement(element) {
+    element.removeAttribute("class", "hide");
+}
 
-
+function hideElement(element) {
+    element.setAttribute("class", "hide");
+}
 
 // runs countdown once quiz is started
 startBtn.onclick = countdown;
