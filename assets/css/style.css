@@ -31,7 +31,7 @@ a {
 }
 
 
-
+/* style for main content/Quiz */
 #container {
   display: grid;
   padding: 50px;
@@ -89,8 +89,12 @@ h4 {
 #score-form input:focus {
 
   border: 1px solid lightblue;
-  
-
 }
 
+#score-list {
+  background-color: lavender;
+}
 
+#score-list li {
+  padding-top: 5px;;
+}

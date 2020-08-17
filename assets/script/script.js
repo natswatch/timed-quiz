@@ -99,6 +99,7 @@ function checkAnswer(event) {
 
 }
 
+// turns time left into score
 function getScore() {
 
     if (timeLeft < 0) {
@@ -129,6 +130,7 @@ function showScore(s) {
 //     });
 // }
 
+// score is added to score list
 function saveScore(s) {
     
     showElement(scoreContainerEl);
@@ -140,6 +142,7 @@ function saveScore(s) {
     initialsEl.value = "";
 }
 
+// restarts quiz
 function resetQuiz() {
 
     timeLeft = 60;
@@ -156,6 +159,7 @@ function resetQuiz() {
     }
 }
 
+// clears score list
 function clearScore() {
 
     while (scoreListEl.firstChild){
@@ -198,7 +202,12 @@ function countdown() {
     
     timerEl.textContent =  "Time: " + timeLeft;
     timeLeft--;
+
+    // won't let the timer go under 0 and stops quiz
     if (timeLeft < 0) {
+      
+      score = 0;
+      showScore(score);
       clearInterval(timeInterval);
 
     }
